@@ -5,18 +5,20 @@ $DBMngr = new DBManager();
 $usersDAO = new UsersDAO($DBMngr);
 
 //function DisplayUserList(){
+$DBMngr->openConnection();
 $userList = $usersDAO->getUsers();
-if (mysqli_num_rows($result) > 0) {
+// print_r($userList); // ta funkcja pomaga obczaic co sie kryje w zmiennej
+if (count($userList) > 0) {
 	// output data of each row
 	echo "<ul>";
-	while($row = mysqli_fetch_assoc($result)) {
-			
-		echo "<ol>"."id: " . $row["users.id"]. " - Name: " . $row["users.name"]. " " . $row["users.surname"].
-			" " . $row["users.email"]." " . $row["users.password"]. "</ol>";
+	foreach($userList as $user) {
+
+		echo "<li>"."id: " . $user["id"]. " - Name: " . $user["name"]. " " . $user["surname"].
+			" " . $user["email"]." " . $user["password"]. "</li>";
 	}
 	echo"</ul>";
 } else {
 	echo "0 results";
-	//	}
-
 }
+
+$DBMngr->closeConnection();
