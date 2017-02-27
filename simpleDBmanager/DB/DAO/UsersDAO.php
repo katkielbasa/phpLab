@@ -18,13 +18,13 @@ class UsersDAO {
 		return $arrayOfResults;
 	}
 	function insertUser($p) {
-		
-		$sql = "INSERT INTO dit.users (name, surname, email, password)";
+
+		$sql = "INSERT INTO dit.users (name, surname, email, password) ";
 		$sql .= "VALUES ('$p[name]', '$p[surname]', '$p[email]', '$p[password]');";
-		
-		var_dump($sql); die();
+
+		var_dump($sql); // die();
 		$result = $this->dbManager->executeQuery ( $sql );
-	
+
 	}
 }
 	?>

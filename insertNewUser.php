@@ -3,23 +3,18 @@
 <html>
 <body>
 
-Name:
-<?php echo $_GET["name"]or die("Name has not been given"); ?>
-<br>
-Surname:
-<?php echo $_GET["surname"]or die("Surname has not been given"); ?>
-<br>
-Email:
-<?php echo $_GET["email"]or die("Email has not been given"); ?>
-<br>
-Password:
-<?php echo $_GET["password"]or die("Email has not been given"); ?>
-<br>
+<?php
+if(!isset($_GET["name"], $_GET["surname"], $_GET["email"], $_GET["password"])) {
+  die("A required variable is not set");
+}
+?>
+
 </body>
 </html>
 <?php
 require_once 'simpleDBmanager/DB/DAO/UsersDAO.php';
 require_once 'simpleDBmanager/DB/DBManager.php';
+
 $DBMngr = new DBManager();
 $usersDAO = new UsersDAO($DBMngr);
 $userRecord = array("name"=>$_GET["name"],
@@ -27,11 +22,11 @@ $userRecord = array("name"=>$_GET["name"],
 				 	"email"=>$_GET["email"],
 					"password"=>$_GET["password"]);
 //function storeInDB (){
-	if (! empty ($userRecord))
+	// if (! empty ($userRecord))
 	$DBMngr->openConnection();
 	$usersDAO->insertUser($userRecord);
 	$DBMngr->closeConnection();
-	
+
 	//}
 
 	?>
